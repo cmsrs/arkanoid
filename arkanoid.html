@@ -75,11 +75,11 @@
             ],
 
             [
+                { x: 0, y: 0, status: 2 },
                 { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 2 },
                 { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 }
+                { x: 0, y: 0, status: 2 }
             ],
 
 
@@ -106,12 +106,17 @@
         function drawBricks() {
             bricks.forEach((row, r) => {
                 row.forEach((brick, c) => {
-                    if (brick.status === 1) {
+                    if (brick.status > 0) {
                         const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
                         const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
                         brick.x = brickX;
                         brick.y = brickY;
-                        ctx.fillStyle = "green";
+
+                        if (brick.status === 1) {
+                            ctx.fillStyle = "green";
+                        } else if (brick.status === 2) {
+                            ctx.fillStyle = "yellow";
+                        }                        
                         ctx.fillRect(brickX, brickY, brickWidth, brickHeight);
                     }
                 });
@@ -149,12 +154,14 @@
             // Brick collision
             bricks.forEach(row => {
                 row.forEach(brick => {
-                    if (brick.status === 1) {
+                    if (brick.status === 1  || brick.status === 2) {
                         if (ball.x > brick.x && ball.x < brick.x + brickWidth &&
                             ball.y > brick.y && ball.y < brick.y + brickHeight) {
                             ball.dy *= -1;
-                            brick.status = 0;
-                        }
+                            if (brick.status === 1) {
+                                brick.status = 0; // tylko cegiełki zbijalne znikają                
+                            }
+                        }                    
                     }
                 });
             });
