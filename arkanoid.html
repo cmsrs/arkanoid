@@ -14,6 +14,9 @@
         canvas.height = 600;
         const ctx = canvas.getContext("2d");
 
+
+        // **********Game properties - start****************
+
         // Paddle properties
         const paddle = {
             width: 100,
@@ -35,21 +38,54 @@
         };
 
         // Bricks
-        const brickRowCount = 5;
-        const brickColumnCount = 8;
         const brickWidth = 75;
         const brickHeight = 20;
         const brickPadding = 10;
         const brickOffsetTop = 30;
         const brickOffsetLeft = 30;
 
-        const bricks = [];
-        for (let row = 0; row < brickRowCount; row++) {
-            bricks[row] = [];
-            for (let col = 0; col < brickColumnCount; col++) {
-                bricks[row][col] = { x: 0, y: 0, status: 1 };
-            }
-        }
+        const bricks = [
+            [
+                { x: 0, y: 0, status: 0 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 0 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 0 }
+            ],
+            [
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 }
+            ],
+            [
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 }
+            ],
+            [
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 }
+            ],
+
+            [
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 },
+                { x: 0, y: 0, status: 1 }
+            ],
+
+
+        ];        
+
+        // ***************Game properties - stop****************
 
         // Draw paddle
         function drawPaddle() {
