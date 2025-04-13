@@ -29,3 +29,11 @@ A simple clone of the classic **Arkanoid** game built using plain JavaScript, HT
    git clone https://github.com/your-username/arkanoid.git
    ```
 2. Open the arkanoid.html file in any modern web browser.
+
+
+## Zmodyfikuj parametry gry, czy gra jest grywalna Twoim zdaniem?
+
+## Zapytanie do chata:
+
+- napisz prosta gre: '...' w jednym pliku html-u przy użyciu JavaScript, css i html-a.
+np.: węża zjadajacego przedmioty
