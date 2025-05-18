@@ -35,5 +35,5 @@ A simple clone of the classic **Arkanoid** game built using plain JavaScript, HT
 
 ## Zapytanie do chata:
 
-- napisz prosta gre: '...' w jednym pliku html-u przy użyciu JavaScript, css i html-a.
-np.: węża zjadajacego przedmioty
+- napisz prosta gre np.: ```węża zjadajacego przedmioty``` w jednym pliku html-u przy użyciu JavaScript, css i html-a. Zaproponuj inną grę.
+ 
