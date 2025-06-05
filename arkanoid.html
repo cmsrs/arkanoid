@@ -36,6 +36,15 @@
             dx: 4,
             dy: -4
         };
+		
+		function resetBallAndPaddle() {
+			paddle.x = canvas.width / 2 - paddle.width / 2;
+			ball.x = canvas.width / 2;
+			ball.y = canvas.height / 2;
+			ball.dx = 4;
+			ball.dy = -4;
+		}
+		
 
         // Bricks
         const brickWidth = 75;
@@ -43,50 +52,111 @@
         const brickPadding = 10;
         const brickOffsetTop = 30;
         const brickOffsetLeft = 30;
+		
+		let level = 0;
+		let bricksLeft = 0;
 
         const bricks = [
-            [
-                { x: 0, y: 0, status: 0 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 0 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 0 }
-            ],
-            [
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 }
-            ],
-            [
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 }
-            ],
-            [
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 1 }
-            ],
+			[
+				[
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 }								
 
-            [
-                { x: 0, y: 0, status: 2 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 2 },
-                { x: 0, y: 0, status: 1 },
-                { x: 0, y: 0, status: 2 }
-            ],
+				],
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 2 }
+				],
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 }
+				],
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 }
+				],
 
+				[
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 2 }				
+				]
+			],			
+			[
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 }								
 
+				],
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 }
+				],
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 }
+				],
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 1 }
+				],
+
+				[
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 2 },
+					{ x: 0, y: 0, status: 2 }				
+				]
+			]
+			
         ];        
 
         // ***************Game properties - stop****************
-
+		
         // Draw paddle
         function drawPaddle() {
             ctx.fillStyle = "blue";
@@ -103,8 +173,8 @@
         }
 
         // Draw bricks
-        function drawBricks() {
-            bricks.forEach((row, r) => {
+        function drawBricks() {			
+            bricks[level].forEach((row, r) => {
                 row.forEach((brick, c) => {
                     if (brick.status > 0) {
                         const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
@@ -152,7 +222,8 @@
             }
 
             // Brick collision
-            bricks.forEach(row => {
+			bricksLeft = 0;
+            bricks[level].forEach(row => {
                 row.forEach(brick => {
                     if (brick.status === 1  || brick.status === 2) {
                         if (ball.x > brick.x && ball.x < brick.x + brickWidth &&
@@ -161,10 +232,24 @@
                             if (brick.status === 1) {
                                 brick.status = 0; // tylko cegiełki zbijalne znikają                
                             }
-                        }                    
+                        }
                     }
+					if (brick.status === 1 ){
+						bricksLeft++;
+					}					
                 });
             });
+
+			// Przejście na nowy poziom
+			if (bricksLeft === 0) {
+				level++;
+				if (level >= bricks.length) {
+					alert("Wygrałeś! Wszystkie poziomy ukończone - stworz nastepny poziom!");
+					document.location.reload();
+				} else {
+					resetBallAndPaddle();
+				}
+			}
 
             // Game over (bottom collision)
             if (ball.y + ball.radius > canvas.height) {
@@ -181,6 +266,8 @@
             drawBricks();
             drawPaddle();
             drawBall();
+			
+			//console.log('bricksLeft=' + bricksLeft);
             
             requestAnimationFrame(update);
         }
