@@ -50,11 +50,15 @@
         const brickWidth = 75;
         const brickHeight = 20;
         const brickPadding = 10;
-        const brickOffsetTop = 30;
+        const brickOffsetTop = 60;
         const brickOffsetLeft = 30;
 		
 		let level = 0;
 		let bricksLeft = 0;
+
+        let lives = 3;
+        let showLifeLostMessage = false;
+        let lifeLostTimer = 0;        
 
         const bricks = [
 			[
@@ -216,10 +220,32 @@
             }
 
             // Paddle collision
+            //if (ball.x > paddle.x && ball.x < paddle.x + paddle.width &&
+            //    ball.y + ball.radius > paddle.y) {
+            //    ball.dy *= -1;
+            //}
+
             if (ball.x > paddle.x && ball.x < paddle.x + paddle.width &&
                 ball.y + ball.radius > paddle.y) {
+
+                const hitPos = ball.x - (paddle.x + paddle.width / 2);
+                ball.dx = hitPos * 0.1 + (Math.random() - 0.5); // efekt rotacji + losowość
                 ball.dy *= -1;
-            }
+
+                // 🔥 Przyspieszenie piłki (do pewnego limitu)
+                const speedIncrease = 0.5;
+                const maxSpeed = 8;
+
+                // oblicz aktualną prędkość
+                const currentSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+
+                // zwiększ prędkość, jeśli poniżej limitu
+                if (currentSpeed < maxSpeed) {
+                    const factor = (currentSpeed + speedIncrease) / currentSpeed;
+                    ball.dx *= factor;
+                    ball.dy *= factor;
+                }
+            }            
 
             // Brick collision
 			bricksLeft = 0;
@@ -248,22 +274,79 @@
 					document.location.reload();
 				} else {
 					resetBallAndPaddle();
+                    //showLifeLostMessage = true;
+                    //lifeLostTimer = 60; // ~1 sekunda                    
 				}
 			}
 
+            // Limit maksymalnej prędkości
+            const maxSpeed = 6;
+
+            const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+            if (speed > maxSpeed) {
+                const scale = maxSpeed / speed;
+                ball.dx *= scale;
+                ball.dy *= scale;
+            }            
+
             // Game over (bottom collision)
             if (ball.y + ball.radius > canvas.height) {
-                document.location.reload();
+                lives--;
+                if (lives <= 0) {
+                    alert("Koniec gry! Wszystkie życia stracone.");
+                    document.location.reload();
+                } else {
+                    showLifeLostMessage = true;
+                    lifeLostTimer = 60;
+                }
             }
         }
 
+        function drawHUD() {
+            // Tło paska HUD
+            ctx.fillStyle = "#f0f0f0";
+            ctx.fillRect(0, 0, canvas.width, 50);
+
+            // Tekst poziomu i żyć
+            ctx.fillStyle = "black";
+            ctx.font = "16px Arial";
+            ctx.fillText("Level: " + (level + 1), 10, 30);
+            ctx.fillText("Lives: " + lives, 120, 30);
+        }
+
+
         // Update game frame
         function update() {
+            //movePaddle();
+            //moveBall();
             movePaddle();
-            moveBall();
+            if (!showLifeLostMessage) {
+                moveBall();
+            }
+
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "16px Arial";
+            ctx.fillStyle = "black";
+            ctx.fillText("Level: " + (level + 1), 10, 20);
+            ctx.fillText("Lives: " + lives, 10, 40);   
+
+            // Wiadomość o stracie życia
+            drawHUD();      // <--- dodane tutaj
+
+            if (showLifeLostMessage) {
+                ctx.font = "24px Arial";
+                ctx.fillStyle = "red";
+                ctx.fillText("Straciłeś życie!", canvas.width / 2 - 80, canvas.height / 2);
+                lifeLostTimer--;
+                if (lifeLostTimer <= 0) {
+                    showLifeLostMessage = false;
+                    resetBallAndPaddle();
+                }
+            }            
+            // Draw everything            
             drawBricks();
+
             drawPaddle();
             drawBall();
 			
