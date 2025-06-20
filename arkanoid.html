@@ -58,9 +58,80 @@
 
         let lives = 3;
         let showLifeLostMessage = false;
-        let lifeLostTimer = 0;        
+        let lifeLostTimer = 0;       
 
         const bricks = [
+
+
+            [
+                // Wiersz 0
+                [
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 1 }
+                ],
+                // Wiersz 1
+                [
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 }
+                ],
+                // Wiersz 2
+                [
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 }
+                ],
+                // Wiersz 3
+                [
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 0 }
+                ],
+                // Wiersz 4
+                [
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 0 }
+                ],
+                // Wiersz 5
+                [
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 1 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 0 },
+                    { x: 0, y: 0, status: 0 }
+                ]
+            ],    
+
 			[
 				[
 					{ x: 0, y: 0, status: 0 },
@@ -155,9 +226,96 @@
 					{ x: 0, y: 0, status: 2 },
 					{ x: 0, y: 0, status: 2 }				
 				]
-			]
-			
+			],
+
+            
+            [
+                [
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 2 },
+                ],
+                [
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 2 },
+                ],
+                [
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 2 },
+                ],
+                [
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 2 },
+                ],
+                [
+                    { x: 0, y: 0, status: 2 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 1 }, 
+                    { x: 0, y: 0, status: 2 },
+                ],
+                [
+                    { x: 0, y: 0, status: 0 }, 
+                    { x: 0, y: 0, status: 0 }, 
+                    { x: 0, y: 0, status: 0 }, 
+                    { x: 0, y: 0, status: 0 }, 
+                    { x: 0, y: 0, status: 0 }, 
+                    { x: 0, y: 0, status: 0 },
+                ]
+            ]
+
+
         ];        
+
+        /*
+        const bricks = [
+			[
+				[
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 1 }								
+
+				]
+            ],
+
+			[
+				[
+					{ x: 0, y: 0, status: 1 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 0 },
+					{ x: 0, y: 0, status: 1 }								
+
+				]
+            ]
+
+        ];
+        */
+
 
         // ***************Game properties - stop****************
 		
@@ -271,6 +429,9 @@
 				level++;
 				if (level >= bricks.length) {
 					alert("Wygrałeś! Wszystkie poziomy ukończone - stworz nastepny poziom!");
+                    //document.getElementById("win-screen").style.display = "flex";
+                    //cancelAnimationFrame(animationId); // zatrzymaj grę
+
 					document.location.reload();
 				} else {
 					resetBallAndPaddle();
@@ -352,6 +513,7 @@
 			
 			//console.log('bricksLeft=' + bricksLeft);
             
+            //requestAnimationFrame(update);
             requestAnimationFrame(update);
         }
 
