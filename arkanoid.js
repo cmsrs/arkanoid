@@ -1,6 +1,6 @@
         const canvas = document.createElement("canvas");
         canvas.style.border = "2px solid black";
-        document.getElementById("game").appendChild(canvas);
+        document.getElementById("game_arkanoid").appendChild(canvas);
         canvas.width = 800;
         canvas.height = 600;
         const ctx = canvas.getContext("2d");
@@ -52,7 +52,7 @@
         let lifeLostTimer = 0;    
         
         let showGameOver = false;
-        let gameOverTimer = 120; // np. 2 sekundy przy 60 FPS
+        let gameOverTimer = 60; // np. 2 sekundy przy 60 FPS
         
         let showVictory = false;
         let victoryTimer = 180; // 3 sekundy przy 60 FPS
@@ -453,7 +453,7 @@
                 lives--;
                 if (lives <= 0) {
                     showGameOver = true;
-                    gameOverTimer = 120;
+                    gameOverTimer = 60;
                     //alert("Game over! You've lost all your lives.");
                     //setTimeout(() => {
                     //    document.location.reload();
