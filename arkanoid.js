@@ -422,8 +422,10 @@
 					alert("You won! All levels completed.");
                     //document.getElementById("win-screen").style.display = "flex";
                     //cancelAnimationFrame(animationId); // zatrzymaj grę
+                    setTimeout(() => {
+					    document.location.reload();
+                    }, 100);
 
-					document.location.reload();
 				} else {
 					resetBallAndPaddle();
                     //showLifeLostMessage = true;
@@ -446,7 +448,9 @@
                 lives--;
                 if (lives <= 0) {
                     alert("Game over! You've lost all your lives.");
-                    document.location.reload();
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 100);
                 } else {
                     showLifeLostMessage = true;
                     lifeLostTimer = 60;
