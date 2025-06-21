@@ -381,7 +381,7 @@
                 ball.dx = hitPos * 0.1 + (Math.random() - 0.5); // efekt rotacji + losowość
                 ball.dy *= -1;
 
-                // 🔥 Przyspieszenie piłki (do pewnego limitu)
+                // Przyspieszenie piłki (do pewnego limitu)
                 const speedIncrease = 0.5;
                 const maxSpeed = 8;
 
@@ -506,6 +506,27 @@
             requestAnimationFrame(update);
         }
 
+        canvas.addEventListener("touchstart", handleTouch);
+        canvas.addEventListener("touchmove", handleTouch);
+
+        function handleTouch(e) {
+            const touchX = e.touches[0].clientX;
+
+            // Przesuń paletkę do miejsca dotyku (lub tylko w jego kierunku)
+            if (touchX < canvas.width / 2) {
+                paddle.dx = -paddle.speed;
+            } else {
+                paddle.dx = paddle.speed;
+            }
+
+            // Zatrzymaj ruch po dotknięciu tylko raz
+            e.preventDefault();
+        }
+
+        canvas.addEventListener("touchend", () => {
+            paddle.dx = 0;
+        });
+
 
         // Keyboard events
         document.addEventListener("keydown", (e) => {
@@ -516,6 +537,14 @@
         document.addEventListener("keyup", () => {
             paddle.dx = 0;
         });
+
+        function resizeCanvas() {
+            const scale = Math.min(window.innerWidth / 800, window.innerHeight / 600);
+            canvas.style.width = `${800 * scale}px`;
+            canvas.style.height = `${600 * scale}px`;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas(); // uruchom przy starcie        
 
         // Start game
         update();
