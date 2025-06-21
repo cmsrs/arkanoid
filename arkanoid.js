@@ -49,7 +49,14 @@
 
         let lives = 3;
         let showLifeLostMessage = false;
-        let lifeLostTimer = 0;       
+        let lifeLostTimer = 0;    
+        
+        let showGameOver = false;
+        let gameOverTimer = 120; // np. 2 sekundy przy 60 FPS
+        
+        let showVictory = false;
+        let victoryTimer = 180; // 3 sekundy przy 60 FPS
+
 
         const bricks = [
 
@@ -274,8 +281,8 @@
 
         ];        
 
-        /*
-        const bricks = [
+        
+        const bricks_tmp = [
 			[
 				[
 					{ x: 0, y: 0, status: 0 },
@@ -305,7 +312,7 @@
             ]
 
         ];
-        */
+        
 
 
         // ***************Game properties - stop****************
@@ -419,12 +426,10 @@
 			if (bricksLeft === 0) {
 				level++;
 				if (level >= bricks.length) {
-					alert("You won! All levels completed.");
-                    //document.getElementById("win-screen").style.display = "flex";
-                    //cancelAnimationFrame(animationId); // zatrzymaj grę
+                    level = 0; 
                     setTimeout(() => {
 					    document.location.reload();
-                    }, 100);
+                    }, 600);
 
 				} else {
 					resetBallAndPaddle();
@@ -447,10 +452,12 @@
             if (ball.y + ball.radius > canvas.height) {
                 lives--;
                 if (lives <= 0) {
-                    alert("Game over! You've lost all your lives.");
-                    setTimeout(() => {
-                        document.location.reload();
-                    }, 100);
+                    showGameOver = true;
+                    gameOverTimer = 120;
+                    //alert("Game over! You've lost all your lives.");
+                    //setTimeout(() => {
+                    //    document.location.reload();
+                    //}, 100);
                 } else {
                     showLifeLostMessage = true;
                     lifeLostTimer = 60;
@@ -499,7 +506,57 @@
                     showLifeLostMessage = false;
                     resetBallAndPaddle();
                 }
-            }            
+            } 
+            
+            if (showGameOver) {
+                ctx.font = "28px Arial";
+                ctx.fillStyle = "black";
+                ctx.fillRect(0, 0, canvas.width, canvas.height); // tło dla widoczności
+                ctx.fillStyle = "white";
+                ctx.fillText("Game Over", canvas.width / 2 - 80, canvas.height / 2);
+                gameOverTimer--;
+                if (gameOverTimer <= 0) {
+                    document.location.reload(); // lub resetGame()
+                }
+            } 
+
+            // Tworzymy przycisk dynamicznie
+            // const restartBtn = document.createElement('button');
+            // restartBtn.id = 'restartBtn';
+            // restartBtn.textContent = 'Restart';
+            // restartBtn.style.display = 'none';  // Ukrywamy go na start
+
+            // // Dodajemy go do body (lub innego kontenera)
+            // document.getElementById('game').appendChild(restartBtn);
+
+            // // Obsługa kliknięcia na przycisk
+            // restartBtn.addEventListener('click', () => {
+            //     location.reload();
+            // });            
+            // if (showVictory) {
+            //     ctx.font = "28px Arial";
+            //     ctx.fillStyle = "green";
+            //     ctx.fillRect(0, 0, canvas.width, canvas.height); // zielone tło zwycięstwa
+            //     ctx.fillStyle = "white";
+            //     ctx.fillText("You Win!, Restart", canvas.width / 2 - 70, canvas.height / 2);
+
+            //     level = 0;
+
+            //     canvas.style.cursor = 'pointer'; // pokaż, że można kliknąć
+            //     canvas.addEventListener('click', () => {
+            //         document.location.reload();
+            //     }, { once: true }); // listener działa tylko raz
+
+
+            //     //showVictory = false; 
+            //     //restartBtn.style.display = 'block';
+            //     //restartBtn.style.display = 'inline-block';
+            // } else {
+            //     //restartBtn.style.display = 'none';
+            //     canvas.style.cursor = 'default';
+            // }
+            
+
             // Draw everything            
             drawBricks();
 
