@@ -401,6 +401,8 @@
 
         // Move ball
         function moveBall() {
+            if (showGameOver || showVictory) return;
+
             ball.x += ball.dx;
             ball.y += ball.dy;
 
@@ -467,6 +469,7 @@
 				if (level >= bricks.length) {
                     level = 0; 
                     restartGame();
+                    //update();
                     //setTimeout(() => {
 					    //document.location.reload();
                         //restartGame();
@@ -568,6 +571,8 @@
                 if (gameOverTimer <= 0) {
                     showGameOver = false;
                     restartGame();
+                    //update();
+
                     //document.location.reload(); // lub resetGame()
                     //setTimeout(() => {
 					    //document.location.reload();
@@ -575,44 +580,7 @@
                     //}, 200);
 
                 }
-            } 
-
-            // Tworzymy przycisk dynamicznie
-            // const restartBtn = document.createElement('button');
-            // restartBtn.id = 'restartBtn';
-            // restartBtn.textContent = 'Restart';
-            // restartBtn.style.display = 'none';  // Ukrywamy go na start
-
-            // // Dodajemy go do body (lub innego kontenera)
-            // document.getElementById('game').appendChild(restartBtn);
-
-            // // Obsługa kliknięcia na przycisk
-            // restartBtn.addEventListener('click', () => {
-            //     location.reload();
-            // });            
-            // if (showVictory) {
-            //     ctx.font = "28px Arial";
-            //     ctx.fillStyle = "green";
-            //     ctx.fillRect(0, 0, canvas.width, canvas.height); // zielone tło zwycięstwa
-            //     ctx.fillStyle = "white";
-            //     ctx.fillText("You Win!, Restart", canvas.width / 2 - 70, canvas.height / 2);
-
-            //     level = 0;
-
-            //     canvas.style.cursor = 'pointer'; // pokaż, że można kliknąć
-            //     canvas.addEventListener('click', () => {
-            //         document.location.reload();
-            //     }, { once: true }); // listener działa tylko raz
-
-
-            //     //showVictory = false; 
-            //     //restartBtn.style.display = 'block';
-            //     //restartBtn.style.display = 'inline-block';
-            // } else {
-            //     //restartBtn.style.display = 'none';
-            //     canvas.style.cursor = 'default';
-            // }
-            
+            }            
 
             // Draw everything            
             drawBricks();
