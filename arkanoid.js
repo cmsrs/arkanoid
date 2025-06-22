@@ -506,7 +506,7 @@
                 if (lives <= 0) {
                     //alert('co to jest?');
                     showGameOver = true;
-                    gameOverTimer = 30;
+                    gameOverTimer = 60;
                     //alert("Game over! You've lost all your lives.");
                     //setTimeout(() => {
                     //    document.location.reload();
@@ -567,7 +567,8 @@
                 ctx.fillRect(0, 0, canvas.width, canvas.height); // tło dla widoczności
                 ctx.fillStyle = "white";
                 ctx.fillText("Game Over", canvas.width / 2 - 80, canvas.height / 2);
-                gameOverTimer--;
+                resetBallAndPaddle();
+                gameOverTimer--;                
                 if (gameOverTimer <= 0) {
                     showGameOver = false;
                     restartGame();
