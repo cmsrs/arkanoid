@@ -52,7 +52,7 @@
         let lifeLostTimer = 0;    
         
         let showGameOver = false;
-        let gameOverTimer = 60; // np. 2 sekundy przy 60 FPS
+        let gameOverTimer = 30; // np. 2 sekundy przy 60 FPS
         
         let showVictory = false;
         let victoryTimer = 180; // 3 sekundy przy 60 FPS
@@ -451,9 +451,18 @@
             // Game over (bottom collision)
             if (ball.y + ball.radius > canvas.height) {
                 lives--;
+
+                // ctx.font = "28px Arial";
+                // ctx.fillStyle = "black";
+                // ctx.fillRect(0, 0, canvas.width, canvas.height); // tło dla widoczności
+                // ctx.fillStyle = "white";
+                // ctx.fillText("Game Over", canvas.width / 2 - 80, canvas.height / 2);
+
+
                 if (lives <= 0) {
+                    //alert('co to jest?');
                     showGameOver = true;
-                    gameOverTimer = 60;
+                    gameOverTimer = 30;
                     //alert("Game over! You've lost all your lives.");
                     //setTimeout(() => {
                     //    document.location.reload();
@@ -516,6 +525,7 @@
                 ctx.fillText("Game Over", canvas.width / 2 - 80, canvas.height / 2);
                 gameOverTimer--;
                 if (gameOverTimer <= 0) {
+                    showGameOver = false;
                     document.location.reload(); // lub resetGame()
                 }
             } 
