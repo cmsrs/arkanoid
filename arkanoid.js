@@ -318,6 +318,7 @@
 
             ];
             return init_bricks;
+            //return init_bricks_tmp;
         }
 
 
