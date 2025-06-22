@@ -632,9 +632,9 @@
         });
 
         function resizeCanvas() {
-            const scale = Math.min(window.innerWidth / 800, window.innerHeight / 600);
-            canvas.style.width = `${800 * scale}px`;
-            canvas.style.height = `${500 * scale}px`;
+            const scale = Math.min(window.innerWidth / 700, window.innerHeight / 600);
+            canvas.style.width = `${700 * scale}px`;
+            canvas.style.height = `${450 * scale}px`;
         }
         window.addEventListener("resize", resizeCanvas);
         resizeCanvas(); // uruchom przy starcie        
