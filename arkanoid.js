@@ -61,7 +61,9 @@
 		let bricksLeft; // = 0;        
 
         let bricks = [];
-        
+
+        let score; // = 0;
+ 
 
         function initBricks(){
 
@@ -321,11 +323,12 @@
             //return init_bricks_tmp;
         }
 
-
+        /** moznabyloby nazwac inicjacja gry */
         function restartGame() {
             // Reset poziomu i żyć
             level = 0;
             lives = 3;
+            score = 0;
 
             // Resetuj flagi stanu gry
             showLifeLostMessage = false;
@@ -454,7 +457,8 @@
                             ball.y > brick.y && ball.y < brick.y + brickHeight) {
                             ball.dy *= -1;
                             if (brick.status === 1) {
-                                brick.status = 0; // tylko cegiełki zbijalne znikają                
+                                brick.status = 0; // tylko cegiełki zbijalne znikają     
+                                score += 10;           
                             }
                         }
                     }
@@ -529,6 +533,7 @@
             ctx.font = "16px Arial";
             ctx.fillText("Level: " + (level + 1), 10, 30);
             ctx.fillText("Lives: " + lives, 120, 30);
+            ctx.fillText("Scores: " + score, 230, 30);            
         }
 
 
@@ -537,7 +542,7 @@
             //movePaddle();
             //moveBall();
             movePaddle();
-            if (!showLifeLostMessage) {
+            if (!showLifeLostMessage || showGameOver) {
                 moveBall();
             }
 
@@ -568,7 +573,7 @@
                 ctx.fillRect(0, 0, canvas.width, canvas.height); // tło dla widoczności
                 ctx.fillStyle = "white";
                 ctx.fillText("Game Over", canvas.width / 2 - 80, canvas.height / 2);
-                resetBallAndPaddle();
+                //resetBallAndPaddle();
                 gameOverTimer--;                
                 if (gameOverTimer <= 0) {
                     showGameOver = false;
