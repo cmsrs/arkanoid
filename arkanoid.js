@@ -44,275 +44,314 @@
         const brickOffsetTop = 60;
         const brickOffsetLeft = 30;
 		
-		let level = 0;
-		let bricksLeft = 0;
 
-        let lives = 3;
-        let showLifeLostMessage = false;
-        let lifeLostTimer = 0;    
+        /** see inf function */
+		let level; // = 0;
+        let lives; // = 3;
+
+        let showLifeLostMessage; // = false;
+        let lifeLostTimer; // = 0;    
+
+        let showGameOver; // = false;
+        let gameOverTimer; // = 30; // np. 2 sekundy przy 60 FPS
+
+        let showVictory; // = false;
+        let victoryTimer; // = 180; // 3 sekundy przy 60 FPS
+
+		let bricksLeft; // = 0;        
+
+        let bricks = [];
         
-        let showGameOver = false;
-        let gameOverTimer = 30; // np. 2 sekundy przy 60 FPS
-        
-        let showVictory = false;
-        let victoryTimer = 180; // 3 sekundy przy 60 FPS
 
+        function initBricks(){
 
-        const bricks = [
+            const init_bricks = [
+                [
+                    // Wiersz 0
+                    [
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+                    // Wiersz 1
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+                    // Wiersz 2
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+                    // Wiersz 3
+                    [
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 }
+                    ],
+                    // Wiersz 4
+                    [
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 }
+                    ],
+                    // Wiersz 5
+                    [
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 }
+                    ]
+                ],    
 
+                [
+                    [
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }								
 
-            [
-                // Wiersz 0
+                    ],
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 2 }
+                    ],
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+
+                    [
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 2 }				
+                    ]
+                ],			
                 [
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 1 }
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }								
+
+                    ],
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 1 }
+                    ],
+
+                    [
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 2 },
+                        { x: 0, y: 0, status: 2 }				
+                    ]
                 ],
-                // Wiersz 1
+
+                
                 [
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 }
-                ],
-                // Wiersz 2
-                [
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 }
-                ],
-                // Wiersz 3
-                [
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 0 }
-                ],
-                // Wiersz 4
-                [
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 0 }
-                ],
-                // Wiersz 5
-                [
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 1 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 0 },
-                    { x: 0, y: 0, status: 0 }
+                    [
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 2 },
+                    ],
+                    [
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 2 },
+                    ],
+                    [
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 2 },
+                    ],
+                    [
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 2 },
+                    ],
+                    [
+                        { x: 0, y: 0, status: 2 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 1 }, 
+                        { x: 0, y: 0, status: 2 },
+                    ],
+                    [
+                        { x: 0, y: 0, status: 0 }, 
+                        { x: 0, y: 0, status: 0 }, 
+                        { x: 0, y: 0, status: 0 }, 
+                        { x: 0, y: 0, status: 0 }, 
+                        { x: 0, y: 0, status: 0 }, 
+                        { x: 0, y: 0, status: 0 },
+                    ]
                 ]
-            ],    
 
-			[
-				[
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 }								
 
-				],
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 2 }
-				],
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 }
-				],
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 }
-				],
-
-				[
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 2 }				
-				]
-			],			
-			[
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 }								
-
-				],
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 }
-				],
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 }
-				],
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 1 }
-				],
-
-				[
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 2 },
-					{ x: 0, y: 0, status: 2 }				
-				]
-			],
+            ];        
 
             
-            [
+            const init_bricks_tmp = [
                 [
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 2 },
+                    [
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 }								
+
+                    ]
                 ],
+
                 [
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 2 },
-                ],
-                [
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 2 },
-                ],
-                [
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 2 },
-                ],
-                [
-                    { x: 0, y: 0, status: 2 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 1 }, 
-                    { x: 0, y: 0, status: 2 },
-                ],
-                [
-                    { x: 0, y: 0, status: 0 }, 
-                    { x: 0, y: 0, status: 0 }, 
-                    { x: 0, y: 0, status: 0 }, 
-                    { x: 0, y: 0, status: 0 }, 
-                    { x: 0, y: 0, status: 0 }, 
-                    { x: 0, y: 0, status: 0 },
+                    [
+                        { x: 0, y: 0, status: 1 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 0 },
+                        { x: 0, y: 0, status: 1 }								
+
+                    ]
                 ]
-            ]
+
+            ];
+            return init_bricks;
+        }
 
 
-        ];        
+        function restartGame() {
+            // Reset poziomu i żyć
+            level = 0;
+            lives = 3;
 
-        
-        const bricks_tmp = [
-			[
-				[
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 1 }								
+            // Resetuj flagi stanu gry
+            showLifeLostMessage = false;
+            lifeLostTimer = 0;
+            showGameOver = false;
+            gameOverTimer = 0;
+            showVictory = false;
+            victoryTimer = 0;
 
-				]
-            ],
+            // Zainicjalizuj cegły od nowa
+            bricks = initBricks();
 
-			[
-				[
-					{ x: 0, y: 0, status: 1 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 0 },
-					{ x: 0, y: 0, status: 1 }								
+            // Resetuj pozycję piłki i paletki
+            resetBallAndPaddle();
 
-				]
-            ]
+            // Przelicz pozostałe cegły
+            bricksLeft = 0;
+            bricks[level].forEach(row => {
+                row.forEach(brick => {
+                    if (brick.status === 1 ) {
+                        bricksLeft++;
+                    }
+                });
+            });
+        }        
 
-        ];
-        
+        restartGame();
 
 
         // ***************Game properties - stop****************
@@ -427,9 +466,11 @@
 				level++;
 				if (level >= bricks.length) {
                     level = 0; 
-                    setTimeout(() => {
-					    document.location.reload();
-                    }, 600);
+                    restartGame();
+                    //setTimeout(() => {
+					    //document.location.reload();
+                        //restartGame();
+                    //}, 600);
 
 				} else {
 					resetBallAndPaddle();
@@ -526,7 +567,13 @@
                 gameOverTimer--;
                 if (gameOverTimer <= 0) {
                     showGameOver = false;
-                    document.location.reload(); // lub resetGame()
+                    restartGame();
+                    //document.location.reload(); // lub resetGame()
+                    //setTimeout(() => {
+					    //document.location.reload();
+                        //restartGame();
+                    //}, 200);
+
                 }
             } 
 
