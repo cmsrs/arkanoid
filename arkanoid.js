@@ -1,5 +1,5 @@
         const canvas = document.createElement("canvas");
-        canvas.style.border = "2px solid black";
+        canvas.style.border = "1px solid #191919";
         document.getElementById("game_arkanoid").appendChild(canvas);
         canvas.width = 800;
         canvas.height = 600;
