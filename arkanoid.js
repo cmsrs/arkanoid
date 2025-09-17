@@ -410,10 +410,17 @@
             ball.x += ball.dx;
             ball.y += ball.dy;
 
-            // Wall collision (left/right)
-            if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
+            // Odbicie od lewej ściany
+            if (ball.x - ball.radius < 0) {
+                ball.x = ball.radius; // ustaw przy samej krawędzi
                 ball.dx *= -1;
             }
+
+            // Odbicie od prawej ściany
+            if (ball.x + ball.radius > canvas.width) {
+                ball.x = canvas.width - ball.radius; // ustaw przy samej krawędzi
+                ball.dx *= -1;
+            }            
 
             // Wall collision (top)
             if (ball.y - ball.radius < 0) {
